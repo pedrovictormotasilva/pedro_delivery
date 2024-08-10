@@ -10,6 +10,7 @@ class FoodTile extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Column(
+      
       children: [
         GestureDetector(
           onTap: onTap,
