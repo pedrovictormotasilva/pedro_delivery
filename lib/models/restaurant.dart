@@ -1,8 +1,10 @@
+import 'package:collection/collection.dart';
+import 'package:data_persistence/models/cart_item.dart';
 import 'package:flutter/material.dart';
 
 import '../models/food.dart';
 
-class Restaurant extends ChangeNotifier{
+class Restaurant extends ChangeNotifier {
   // LISTA DE MENUS
   final List<Food> _menu = [];
 
@@ -339,6 +341,7 @@ class Restaurant extends ChangeNotifier{
       ),
     ]);
   }
+
   /*
   
    G E T T E R S
@@ -346,6 +349,7 @@ class Restaurant extends ChangeNotifier{
   */
 
   List<Food> get menu => _menu;
+  List<CartItem> get cart => _cart;
 
   /*
   
@@ -353,23 +357,84 @@ class Restaurant extends ChangeNotifier{
   
   */
 
-  //adicionar ao carrinho 
+  //carrinho do usuario
+  final List<CartItem> _cart = [];
 
-  //remover do carrinho 
+  //adicionar ao carrinho
+  void addToCart(Food food, List<Addon> selectedAddons) {
+    // veja se já existe um item do carrinho com a mesma comida e complementos selecionados
+    CartItem? cartItem = _cart.firstWhereOrNull((item) {
+      // checar se as comidas são as mesmas
+      bool isSameFood = item.food == food;
+
+      // checar se a lista de acompanhamentos selecionados são os mesmos
+      bool isSameAddons =
+          ListEquality().equals(item.selectedAddons, selectedAddons);
+
+      // Retornar se ambos são verdadeiros
+      return isSameFood && isSameAddons;
+    });
+
+    if (cartItem != null) {
+      cartItem.quantity++;
+    } else {
+      _cart.add(
+        CartItem(
+          food: food,
+          selectedAddons: selectedAddons,
+        ),
+      );
+    }
+    notifyListeners();
+  }
+
+  //remover do carrinho
+  void removeFromCart(CartItem cartItem) {
+    int cartIndex = _cart.indexOf(cartItem);
+
+    if (cartIndex != -1) {
+      if (_cart[cartIndex].quantity > 1) {
+        _cart[cartIndex].quantity--;
+      } else {
+        _cart.removeAt(cartIndex);
+      }
+    }
+    notifyListeners();
+  }
 
   //get total do preco do carrinho
+  double getTotalPrice() {
+    double total = 0.0;
+
+    for (CartItem cartItem in _cart) {
+      double itemTotal = cartItem.food.price;
+
+      for (Addon addon in cartItem.selectedAddons) {
+        itemTotal += addon.price;
+      }
+      total += itemTotal * cartItem.quantity;
+    }
+    return total;
+  }
 
   //get do numero total de items dentro do carrinho
 
+  int getTotalItemCount() {
+    int totalItemCount = 0;
+
+    for (CartItem cartItem in _cart) {
+      totalItemCount += cartItem.quantity;
+    }
+    return totalItemCount;
+  }
+
   //zerar carrinho
+  void clearCart() {
+    _cart.clear();
+    notifyListeners();
+  }
 
-
-
-
-
-
-
-   /*
+  /*
   
    H E L P E R S 
   
@@ -380,5 +445,4 @@ class Restaurant extends ChangeNotifier{
   //formartar o valor double em dindin
 
   //formatar a lista de addons em um sumario de strings
-
 }

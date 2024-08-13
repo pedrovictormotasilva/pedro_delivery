@@ -1,5 +1,6 @@
 import 'package:data_persistence/components/my_button.dart';
 import 'package:data_persistence/models/food.dart';
+import 'package:data_persistence/models/restaurant.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -19,6 +20,20 @@ class FoodPage extends StatefulWidget {
 }
 
 class _FoodPageState extends State<FoodPage> {
+  //metodo para adicioanr ao carrinho
+  void addToCart(Food food, Map<Addon, bool> selectedAddons) {
+    //fechar a pagina da comida e navegar para o menu
+    Navigator.pop(context);
+    List<Addon> currentlySelectedAddons = [];
+    for (Addon addon in widget.food.availableAddons) {
+      if (widget.selectedAddons[addon] == true) {
+        currentlySelectedAddons.add(addon);
+      }
+    }
+
+    context.read<Restaurant>().addToCart(food, currentlySelectedAddons);
+  }
+
   @override
   Widget build(BuildContext context) {
     return Stack(
@@ -133,7 +148,10 @@ class _FoodPageState extends State<FoodPage> {
 
                 // BOTÃO DO CARRINHO
                 MyButton(
-                  onTap: () {},
+                  onTap: () => addToCart(
+                    widget.food,
+                    widget.selectedAddons,
+                  ),
                   text: "Adicionar ao carrinho",
                 ),
 
@@ -147,7 +165,6 @@ class _FoodPageState extends State<FoodPage> {
 
         //ARROW BACK UI
         SafeArea(
-          
           child: Opacity(
             opacity: 0.6,
             child: Container(

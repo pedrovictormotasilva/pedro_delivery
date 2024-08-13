@@ -1,3 +1,4 @@
+import 'package:data_persistence/pages/cart_page.dart';
 import 'package:flutter/material.dart';
 
 class MySliverAppBar extends StatelessWidget {
@@ -17,13 +18,18 @@ class MySliverAppBar extends StatelessWidget {
         //CARRINHO
 
         IconButton(
-        onPressed: () {}, 
-        icon: const Icon(Icons.shopping_cart),
+          onPressed: () {
+            Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => const CartPage(),
+                ));
+          },
+          icon: const Icon(Icons.shopping_cart),
         )
       ],
       backgroundColor: Theme.of(context).colorScheme.background,
       foregroundColor: Theme.of(context).colorScheme.inversePrimary,
-
       title: Text('Jantar ao pôr do sol'),
       flexibleSpace: FlexibleSpaceBar(
         background: Padding(
@@ -34,9 +40,7 @@ class MySliverAppBar extends StatelessWidget {
         centerTitle: true,
         titlePadding: const EdgeInsets.only(left: 0, right: 0, top: 0),
         expandedTitleScale: 1,
-
       ),
     );
   }
 }
-
