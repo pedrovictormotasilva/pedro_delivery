@@ -1,6 +1,7 @@
 import 'package:data_persistence/components/my_button.dart';
 import 'package:data_persistence/components/my_cart_tile.dart';
 import 'package:data_persistence/models/restaurant.dart';
+import 'package:data_persistence/pages/payment_page.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -84,7 +85,10 @@ class CartPage extends StatelessWidget {
               ),
               //botao de pagar
               MyButton(
-                onTap: () {},
+                onTap: () => Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) => const PaymentPage())),
                 text: ("Concluir pedido"),
               ),
               const SizedBox(
