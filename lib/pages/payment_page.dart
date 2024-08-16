@@ -77,6 +77,7 @@ class _PaymentPageState extends State<PaymentPage> {
         children: [
           //cartao de credito
           CreditCardWidget(
+              cardBgColor: Theme.of(context).colorScheme.inversePrimary,
               cardNumber: cardNumber,
               expiryDate: expiryDate,
               cardHolderName: cardHolderName,

@@ -1,6 +1,6 @@
 import 'package:data_persistence/components/my_button.dart';
 import 'package:data_persistence/components/my_textfield.dart';
-import 'package:data_persistence/pages/home_page.dart';
+import 'package:data_persistence/services/auth/auth_service.dart';
 import 'package:flutter/material.dart';
 
 class LoginPage extends StatefulWidget {
@@ -15,22 +15,37 @@ class _LoginPageState extends State<LoginPage> {
   final TextEditingController passwordController = TextEditingController();
 
   //login method
+  void login() async {
+    //get instancia do servico de login
+    final _authService = AuthService();
 
-  void login() {
-    /* 
-    
-    depois eu faco essa bomba
-    
-    
-    */
-    // navegacao para home page
+    //try logar
+    try {
+      await _authService.signInWithEmailPassword(
+          emailController.text, passwordController.text
+          );
+    } 
 
-    Navigator.push(
-        context,
-        MaterialPageRoute(
-          builder: (context) => const HomePage(),
-        ),);
-  }
+    //mostre os erros
+    catch (e) {
+      showDialog(
+          context: context,
+          builder: (context) => AlertDialog(
+                title: Text(e.toString()),
+              ));
+    }
+
+    //esqueci minha senha
+    void forgotPw() {
+      showDialog(
+        context: context,
+        builder: (context) => AlertDialog(
+          backgroundColor: Theme.of(context).colorScheme.background,
+          title: const Text("usuario logado esqeceu a senha"),
+        ),
+      );
+    }
+  } 
 
   @override
   Widget build(BuildContext context) {

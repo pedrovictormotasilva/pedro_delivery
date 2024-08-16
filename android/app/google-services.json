@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "330163001550",
+    "project_id": "pedrodelivery-d3300",
+    "storage_bucket": "pedrodelivery-d3300.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:330163001550:android:a7758f7341c5997b0ed89f",
+        "android_client_info": {
+          "package_name": "com.example.data_persistence"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAarfMey9dQQR3DJkBy_4s0MIgh4CQJO3M"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

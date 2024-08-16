@@ -1,6 +1,7 @@
+import 'package:flutter/material.dart';
 import 'package:data_persistence/components/my_button.dart';
 import 'package:data_persistence/components/my_textfield.dart';
-import 'package:flutter/material.dart';
+import 'package:data_persistence/services/auth/auth_service.dart';
 
 class RegisterPage extends StatefulWidget {
   const RegisterPage({super.key, required this.onTap});
@@ -17,6 +18,33 @@ class _RegisterPageState extends State<RegisterPage> {
   final TextEditingController confirmPasswordController =
       TextEditingController();
 
+  void register() async {
+    final _authService = AuthService();
+
+    if (passwordController.text == confirmPasswordController.text) {
+      try {
+        await _authService.signUpWithEmailPassword(
+          emailController.text,
+          passwordController.text,
+        );
+      } catch (e) {
+        showDialog(
+          context: context,
+          builder: (context) => AlertDialog(
+            title: Text('Erro: ${e.toString()}'),
+          ),
+        );
+      }
+    } else {
+      showDialog(
+        context: context,
+        builder: (context) => const AlertDialog(
+          title: Text("As senhas estão diferentes."),
+        ),
+      );
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -25,18 +53,12 @@ class _RegisterPageState extends State<RegisterPage> {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            //LOGO
             Icon(
               Icons.lock_open_rounded,
               size: 100,
               color: Theme.of(context).colorScheme.inversePrimary,
             ),
-
-            const SizedBox(
-              height: 25,
-            ),
-
-            //TEXTO
+            const SizedBox(height: 25),
             Text(
               "Crie uma conta nova!",
               style: TextStyle(
@@ -44,56 +66,30 @@ class _RegisterPageState extends State<RegisterPage> {
                 color: Theme.of(context).colorScheme.inversePrimary,
               ),
             ),
-
-            const SizedBox(
-              height: 25,
-            ),
-
-            //EMAIL
+            const SizedBox(height: 25),
             MyTextfield(
               controller: emailController,
               hintText: "Email",
               obscureText: false,
             ),
-
-            //SENHA
-
-            const SizedBox(
-              height: 10,
-            ),
-
+            const SizedBox(height: 10),
             MyTextfield(
               controller: passwordController,
               hintText: "Senha",
-              obscureText: true,
+              obscureText: false,
             ),
-
-            //COMFIRME SENHA
-            const SizedBox(
-              height: 10,
-            ),
-
+            const SizedBox(height: 10),
             MyTextfield(
-                controller: confirmPasswordController,
-                hintText: "Comfirme sua senha",
-                obscureText: false),
-
-            //BOTAO LOGAR
-
-            const SizedBox(
-              height: 25,
+              controller: confirmPasswordController,
+              hintText: "Confirme sua senha",
+              obscureText: false,
             ),
-
+            const SizedBox(height: 25),
             MyButton(
               text: "Cadastrar",
-              onTap: () {},
+              onTap: register,
             ),
-
-            //LOGAR SE TIVER CONTAR
-
-            const SizedBox(
-              height: 25,
-            ),
+            const SizedBox(height: 25),
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
@@ -103,9 +99,7 @@ class _RegisterPageState extends State<RegisterPage> {
                     color: Theme.of(context).colorScheme.inversePrimary,
                   ),
                 ),
-                const SizedBox(
-                  width: 4,
-                ),
+                const SizedBox(width: 4),
                 GestureDetector(
                   onTap: widget.onTap,
                   child: Text(
@@ -115,9 +109,9 @@ class _RegisterPageState extends State<RegisterPage> {
                       fontWeight: FontWeight.bold,
                     ),
                   ),
-                )
+                ),
               ],
-            )
+            ),
           ],
         ),
       ),

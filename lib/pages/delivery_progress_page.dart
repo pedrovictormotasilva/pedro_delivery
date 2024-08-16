@@ -1,8 +1,29 @@
+import 'package:data_persistence/components/my_cart_tile.dart';
 import 'package:data_persistence/components/my_receipt.dart';
+import 'package:data_persistence/models/restaurant.dart';
+import 'package:data_persistence/services/database/firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
-class DeliveryProgressPage extends StatelessWidget {
+class DeliveryProgressPage extends StatefulWidget {
   const DeliveryProgressPage({super.key});
+
+  @override
+  State<DeliveryProgressPage> createState() => _DeliveryProgressPageState();
+}
+
+class _DeliveryProgressPageState extends State<DeliveryProgressPage> {
+//pegar o acesso ao banco de dados
+  FirestoreService db = FirestoreService();
+
+  @override
+  void initState() {
+    super.initState();
+
+    //se estivermos nessa pagina, envie o pedido para o banco de dados(db)
+    String receipt = context.read<Restaurant>().displayCartReceipt();
+    db.saveOrderToDatabase(receipt);
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -11,9 +32,7 @@ class DeliveryProgressPage extends StatelessWidget {
       appBar: AppBar(
         backgroundColor: Colors.transparent,
         foregroundColor: Theme.of(context).colorScheme.inversePrimary,
-        title: const Center(
-          child: Text("Entrega em processo..."),
-        ),
+        title: const Center(),
       ),
       bottomNavigationBar: _buildBottomNavBar(context),
       body: SingleChildScrollView(
@@ -27,7 +46,6 @@ class DeliveryProgressPage extends StatelessWidget {
   }
 
   //customizar o bottom navbar - messagem / ligar para o entregador
-
   Widget _buildBottomNavBar(BuildContext context) {
     return Container(
       height: 100,

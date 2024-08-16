@@ -1,7 +1,11 @@
+import 'package:data_persistence/models/restaurant.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 class MyCurrentLocation extends StatelessWidget {
-  const MyCurrentLocation({super.key});
+  MyCurrentLocation({super.key});
+
+  final textController = TextEditingController();
 
   void openLocationSearchBox(BuildContext context) {
     showDialog(
@@ -10,7 +14,7 @@ class MyCurrentLocation extends StatelessWidget {
               title: const Text("Sua localização"),
               content: const TextField(
                 decoration: InputDecoration(
-                  hintText: ('Procure sua localização..'),
+                  hintText: ('Coloque sua localização..'),
                 ),
               ),
               actions: [
@@ -21,7 +25,13 @@ class MyCurrentLocation extends StatelessWidget {
 
                 //BOTAO DE SALVAR
                 MaterialButton(
-                    onPressed: () => Navigator.pop(context),
+                    onPressed: () {
+                      String newAddress = textController.text;
+                      context
+                          .read<Restaurant>()
+                          .updateDeliveryAddress(newAddress);
+                      Navigator.pop(context);
+                    },
                     child: const Text("Salvar")),
               ],
             ));
@@ -45,12 +55,9 @@ class MyCurrentLocation extends StatelessWidget {
             child: Row(
               children: [
                 //endereco
-                Text(
-                  "8156 Barreira Ce",
-                  style: TextStyle(
-                    color: Theme.of(context).colorScheme.inversePrimary,
-                    fontWeight: FontWeight.bold,
-                  ),
+                Consumer<Restaurant>(
+                  builder: (context, restaurant, child) =>
+                      Text(restaurant.deliveryAddress),
                 ),
                 //menu dropdown
                 Icon(Icons.keyboard_arrow_down_rounded)

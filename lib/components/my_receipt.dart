@@ -33,9 +33,7 @@ class MyReceipt extends StatelessWidget {
             const SizedBox(
               height: 25,
             ),
-
             const Text("Tempo estimado de entrega: 15 - 30 min")
-
           ],
         ),
       ),

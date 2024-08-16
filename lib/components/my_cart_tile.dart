@@ -46,27 +46,33 @@ class MyCartTile extends StatelessWidget {
                       Text(cartItem.food.name),
 
                       //preco da comida
-                      Text('\$' + cartItem.food.price.toString(),
-                      style: TextStyle(
-                        color: Theme.of(context).colorScheme.primary,
-                      ),),
+                      Text(
+                        '\$' + cartItem.food.price.toString(),
+                        style: TextStyle(
+                          color: Theme.of(context).colorScheme.primary,
+                        ),
+                      ),
+                      SizedBox(
+                        height: 10,
+                      ),
+
+                      MyQuantitySelector(
+                        quantity: cartItem.quantity,
+                        food: cartItem.food,
+                        onIncrement: () {
+                          restaurant.addToCart(
+                              cartItem.food, cartItem.selectedAddons);
+                        },
+                        onDecrement: () {
+                          restaurant.removeFromCart(cartItem);
+                        },
+                      )
                     ],
                   ),
 
                   const Spacer(),
 
                   //aumentar ou diminuir quantidade
-                  MyQuantitySelector(
-                    quantity: cartItem.quantity,
-                    food: cartItem.food,
-                    onIncrement: () {
-                      restaurant.addToCart(
-                          cartItem.food, cartItem.selectedAddons);
-                    },
-                    onDecrement: () {
-                      restaurant.removeFromCart(cartItem);
-                    },
-                  )
                 ],
               ),
             ),
@@ -82,30 +88,27 @@ class MyCartTile extends StatelessWidget {
                       (addon) => Padding(
                         padding: const EdgeInsets.only(right: 8.0),
                         child: FilterChip(
-                          
                           label: Row(
                             children: [
                               //nome do acompnahmento
                               Text(addon.name),
                               //preco do acompanhamento
                               Text(
-                                ' (\$' + addon.price.toString()  + ')',
+                                ' (\$' + addon.price.toString() + ')',
                               ),
                             ],
                           ),
                           onSelected: (value) {},
                           shape: StadiumBorder(
-                            side: BorderSide(
-                              color: Theme.of(context).colorScheme.primary, 
-                            )
-                          ),
-                          backgroundColor: Theme.of(context).colorScheme.secondary,
+                              side: BorderSide(
+                            color: Theme.of(context).colorScheme.primary,
+                          )),
+                          backgroundColor:
+                              Theme.of(context).colorScheme.secondary,
                           labelStyle: TextStyle(
                             color: Theme.of(context).colorScheme.inversePrimary,
                             fontSize: 12,
-                        
                           ),
-                        
                         ),
                       ),
                     )
