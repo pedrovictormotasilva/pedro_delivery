@@ -9,6 +9,7 @@ class FirestoreService {
     await orders.add({
       'date': DateTime.now(),
       'order' : receipt,
+       
       //adicionar mais se necessario
     });
   }

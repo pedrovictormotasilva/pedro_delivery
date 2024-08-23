@@ -1,9 +1,10 @@
-import 'package:data_persistence/components/my_cart_tile.dart';
 import 'package:data_persistence/components/my_receipt.dart';
 import 'package:data_persistence/models/restaurant.dart';
 import 'package:data_persistence/services/database/firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:url_launcher/url_launcher.dart';
+import 'package:url_launcher/url_launcher_string.dart';
 
 class DeliveryProgressPage extends StatefulWidget {
   const DeliveryProgressPage({super.key});
@@ -23,6 +24,19 @@ class _DeliveryProgressPageState extends State<DeliveryProgressPage> {
     //se estivermos nessa pagina, envie o pedido para o banco de dados(db)
     String receipt = context.read<Restaurant>().displayCartReceipt();
     db.saveOrderToDatabase(receipt);
+  }
+
+//abrir o whatssap no numero do restaurante ou empresa responsável
+  void _openWhatsAppChat() async {
+    String phoneNumber = '5585994142867';
+    String message = "Olá, como está meu pedido?";
+    Uri uri = Uri.parse("https://wa.me/$phoneNumber?text=$message");
+
+    if (await canLaunchUrl(uri)) {
+      await launchUrl(uri, mode: LaunchMode.externalApplication);
+    } else {
+      print("Error launching URL");
+    }
   }
 
   @override
@@ -59,7 +73,7 @@ class _DeliveryProgressPageState extends State<DeliveryProgressPage> {
       padding: const EdgeInsets.all(25),
       child: Row(
         children: [
-          //foto de perfil do entragador
+          //foto de perfil do restaurante
           Container(
             decoration: BoxDecoration(
               color: Theme.of(context).colorScheme.background,
@@ -75,12 +89,16 @@ class _DeliveryProgressPageState extends State<DeliveryProgressPage> {
             height: 10,
           ),
 
-          //detalher do entregador
+          const SizedBox(
+            width: 5,
+          ),
+
+          //detalhes do entregador
           Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Text(
-                'Francisco',
+                'Delivery',
                 style: TextStyle(
                   fontWeight: FontWeight.bold,
                   fontSize: 18,
@@ -88,7 +106,7 @@ class _DeliveryProgressPageState extends State<DeliveryProgressPage> {
                 ),
               ),
               Text(
-                'Entregador',
+                'Restaurante',
                 style: TextStyle(
                   color: Theme.of(context).colorScheme.primary,
                 ),
@@ -107,7 +125,9 @@ class _DeliveryProgressPageState extends State<DeliveryProgressPage> {
                   shape: BoxShape.circle,
                 ),
                 child: IconButton(
-                  onPressed: () {},
+                  onPressed: () {
+                    _openWhatsAppChat();
+                  },
                   icon: const Icon(Icons.message),
                   color: Theme.of(context).colorScheme.primary,
                 ),
@@ -118,7 +138,7 @@ class _DeliveryProgressPageState extends State<DeliveryProgressPage> {
               ),
 
               //botao de ligar
-              Container(
+              /*Container(
                 decoration: BoxDecoration(
                   color: Theme.of(context).colorScheme.background,
                   shape: BoxShape.circle,
@@ -128,7 +148,7 @@ class _DeliveryProgressPageState extends State<DeliveryProgressPage> {
                   icon: const Icon(Icons.call),
                   color: Colors.green,
                 ),
-              ),
+              ),*/
             ],
           )
 
