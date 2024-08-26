@@ -61,7 +61,7 @@ class _FoodPageState extends State<FoodPage> {
 
                       //PRECO
                       Text(
-                        '\$' + widget.food.price.toString(),
+                        'R\$' + widget.food.price.toString(),
                         style: TextStyle(
                           fontSize: 16,
                           fontWeight: FontWeight.bold,
@@ -127,7 +127,7 @@ class _FoodPageState extends State<FoodPage> {
                             return CheckboxListTile(
                               title: Text(addon.name),
                               subtitle: Text(
-                                '\$' + addon.price.toString(),
+                                'R\$' + addon.price.toString(),
                                 style: TextStyle(
                                   color: Theme.of(context).colorScheme.primary,
                                 ),

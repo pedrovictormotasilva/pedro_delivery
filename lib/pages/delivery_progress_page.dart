@@ -4,7 +4,6 @@ import 'package:data_persistence/services/database/firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:url_launcher/url_launcher.dart';
-import 'package:url_launcher/url_launcher_string.dart';
 
 class DeliveryProgressPage extends StatefulWidget {
   const DeliveryProgressPage({super.key});
@@ -49,7 +48,7 @@ class _DeliveryProgressPageState extends State<DeliveryProgressPage> {
         title: const Center(),
       ),
       bottomNavigationBar: _buildBottomNavBar(context),
-      body: SingleChildScrollView(
+      body: const SingleChildScrollView(
         child: Column(
           children: [
             MyReceipt(),

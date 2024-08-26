@@ -47,7 +47,7 @@ class MyCartTile extends StatelessWidget {
 
                       //preco da comida
                       Text(
-                        '\$' + cartItem.food.price.toString(),
+                        'R\$' + cartItem.food.price.toString(),
                         style: TextStyle(
                           color: Theme.of(context).colorScheme.primary,
                         ),
@@ -94,7 +94,7 @@ class MyCartTile extends StatelessWidget {
                               Text(addon.name),
                               //preco do acompanhamento
                               Text(
-                                ' (\$' + addon.price.toString() + ')',
+                                ' (R\$' + addon.price.toString() + ')',
                               ),
                             ],
                           ),

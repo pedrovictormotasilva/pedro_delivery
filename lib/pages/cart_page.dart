@@ -85,10 +85,34 @@ class CartPage extends StatelessWidget {
               ),
               //botao de pagar
               MyButton(
-                onTap: () => Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                        builder: (context) => const PaymentPage())),
+                onTap: () => restaurant.cart.isEmpty
+                    ? ScaffoldMessenger.of(context).showSnackBar(
+                        const SnackBar(
+                          content: Text(
+                            'Adicione algum produto no carrinho antes de ir para o pagamento.',
+                            style: TextStyle(
+                              fontWeight: FontWeight.bold,
+                            ),
+                          ),
+                          backgroundColor: Colors.redAccent,
+                        ),
+                      )
+                    : restaurant.deliveryAddress == "Adicione sua localização"
+                        ? ScaffoldMessenger.of(context).showSnackBar(
+                            const SnackBar(
+                              content: Text(
+                                'Adicione sua localização no início antes de ir para o pagamento.',
+                                style: TextStyle(
+                                  fontWeight: FontWeight.bold,
+                                ),
+                              ),
+                              backgroundColor: Colors.redAccent,
+                            ),
+                          )
+                        : Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => const PaymentPage())),
                 text: ("Concluir pedido"),
               ),
               const SizedBox(

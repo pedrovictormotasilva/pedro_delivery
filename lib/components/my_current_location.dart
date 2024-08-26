@@ -9,32 +9,33 @@ class MyCurrentLocation extends StatelessWidget {
 
   void openLocationSearchBox(BuildContext context) {
     showDialog(
-        context: context,
-        builder: (context) => AlertDialog(
-              title: const Text("Sua localização"),
-              content: const TextField(
-                decoration: InputDecoration(
-                  hintText: ('Coloque sua localização..'),
-                ),
-              ),
-              actions: [
-                //BOTAO DE CANCELAR
-                MaterialButton(
-                    onPressed: () => Navigator.pop(context),
-                    child: const Text("Cancelar")),
-
-                //BOTAO DE SALVAR
-                MaterialButton(
-                    onPressed: () {
-                      String newAddress = textController.text;
-                      context
-                          .read<Restaurant>()
-                          .updateDeliveryAddress(newAddress);
-                      Navigator.pop(context);
-                    },
-                    child: const Text("Salvar")),
-              ],
-            ));
+      context: context,
+      builder: (context) => AlertDialog(
+        title: const Text("Sua localização"),
+        content: TextField(
+          controller: textController,
+          decoration: const InputDecoration(
+            hintText: 'EX: Bairro, Rua-Número',
+          ),
+        ),
+        actions: [
+          // Botão de cancelar
+          MaterialButton(
+            onPressed: () => Navigator.pop(context),
+            child: const Text("Cancelar"),
+          ),
+          // Botão de salvar
+          MaterialButton(
+            onPressed: () {
+              String newAddress = textController.text;
+              context.read<Restaurant>().updateDeliveryAddress(newAddress);
+              Navigator.pop(context);
+            },
+            child: const Text("Salvar"),
+          ),
+        ],
+      ),
+    );
   }
 
   @override
@@ -54,16 +55,16 @@ class MyCurrentLocation extends StatelessWidget {
             onTap: () => openLocationSearchBox(context),
             child: Row(
               children: [
-                //endereco
+                // Endereço
                 Consumer<Restaurant>(
                   builder: (context, restaurant, child) =>
                       Text(restaurant.deliveryAddress),
                 ),
-                //menu dropdown
-                Icon(Icons.keyboard_arrow_down_rounded)
+                // Menu dropdown
+                const Icon(Icons.keyboard_arrow_down_rounded),
               ],
             ),
-          )
+          ),
         ],
       ),
     );

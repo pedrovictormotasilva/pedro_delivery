@@ -41,7 +41,7 @@ class _LoginPageState extends State<LoginPage> {
         context: context,
         builder: (context) => AlertDialog(
           backgroundColor: Theme.of(context).colorScheme.background,
-          title: const Text("usuario logado esqeceu a senha"),
+          title: const Text("O usuário logado esqueceu a senha"),
         ),
       );
     }

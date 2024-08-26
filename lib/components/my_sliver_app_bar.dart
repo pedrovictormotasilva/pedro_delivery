@@ -4,7 +4,11 @@ import 'package:provider/provider.dart';
 import '../models/restaurant.dart';
 
 class MySliverAppBar extends StatelessWidget {
-  const MySliverAppBar({super.key, required this.child, required this.title});
+  const MySliverAppBar({
+    super.key,
+    required this.child,
+    required this.title,
+  });
 
   final Widget child;
   final Widget title;

@@ -1,4 +1,5 @@
 import 'package:data_persistence/components/my_drawer/my_drawer_tile.dart';
+import 'package:data_persistence/pages/orders_page.dart';
 import 'package:data_persistence/pages/settings_page.dart';
 import 'package:data_persistence/services/auth/auth_service.dart';
 import 'package:flutter/material.dart';
@@ -54,8 +55,20 @@ class MyDrawer extends StatelessWidget {
                   );
                 }),
 
+            MyDrawerTile(
+                text: "P E D I D O S ",
+                icon: Icons.shopping_bag,
+                onTap: () {
+                  Navigator.pop(context);
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => const OrdersPage(),
+                    ),
+                  );
+                }),
+
             //LOGOUT
-            Spacer(),
 
             MyDrawerTile(
                 text: "S A I R", icon: Icons.logout, onTap: () => logout()),

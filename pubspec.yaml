@@ -1,12 +1,12 @@
 name: data_persistence
 description: "A new Flutter project."
 
-publish_to: 'none' # Remove this line if you wish to publish to pub.dev
+publish_to: "none" # Remove this line if you wish to publish to pub.dev
 
 version: 1.0.0+1
 
 environment:
-  sdk: '>=3.4.4 <4.0.0'
+  sdk: ">=3.4.4 <4.0.0"
 
 dependencies:
   flutter:
@@ -14,12 +14,14 @@ dependencies:
   cupertino_icons: ^1.0.6
   provider: ^6.1.2
   collection: ^1.18.0
-  flutter_credit_card: 4.0.1
+
   intl: ^0.19.0
   firebase_core: ^3.3.0
   firebase_auth: ^5.1.4
   cloud_firestore: ^5.2.1
   url_launcher: ^6.1.7
+  flutter_stripe: ^11.0.0
+  http: ^1.2.2
 
 dev_dependencies:
   flutter_test:

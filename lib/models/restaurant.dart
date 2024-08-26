@@ -347,7 +347,7 @@ class Restaurant extends ChangeNotifier {
   final List<CartItem> _cart = [];
 
   //endereco de entrega (que o cliente pode mudar e atualizar)
-  String _deliveryAddress = 'Adicione sua localizacao';
+  String _deliveryAddress = 'Adicione sua localização';
 
   /*
   
@@ -474,8 +474,8 @@ class Restaurant extends ChangeNotifier {
     }
     receipt.writeln("----------");
     receipt.writeln();
-    receipt.writeln("Pedido Total: ${getTotalItemCount()}");
-    receipt.writeln("Preço total: ${_formatPrice(getTotalPrice())}");
+    receipt.writeln("Pedido Total: R\$${getTotalItemCount()}");
+    receipt.writeln("Preço total: R\$${_formatPrice(getTotalPrice())}");
     receipt.writeln();
     receipt.writeln("Endereço da entrega: $deliveryAddress");
 
@@ -484,13 +484,13 @@ class Restaurant extends ChangeNotifier {
 
   //formartar o valor double em dindin
   String _formatPrice(double price) {
-    return "\$${price.toStringAsFixed(2)}";
+    return "R\$${price.toStringAsFixed(2)}";
   }
 
   //formatar a lista de acompanhamentos em um sumario de strings
   String _formatAddons(List<Addon> addons) {
     return addons
-        .map((addon) => "${addon.name} (${_formatPrice(addon.price)})")
+        .map((addon) => "${addon.name} (R\$${_formatPrice(addon.price)})")
         .join(", ");
   }
 }

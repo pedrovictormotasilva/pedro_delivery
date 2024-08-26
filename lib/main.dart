@@ -1,6 +1,7 @@
 import 'package:data_persistence/services/auth/auth_gate.dart';
 import 'package:data_persistence/firebase_options.dart';
 import 'package:data_persistence/models/restaurant.dart';
+import 'package:data_persistence/services/stripe/stripe_service.dart';
 import 'package:data_persistence/themes/theme_provider.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
@@ -8,6 +9,7 @@ import 'package:provider/provider.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
+  StripeService.init(); //inicializando o stripe aqui
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
   );
