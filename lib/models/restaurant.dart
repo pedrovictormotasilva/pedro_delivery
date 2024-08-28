@@ -2,7 +2,6 @@ import 'package:collection/collection.dart';
 import 'package:data_persistence/models/cart_item.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
-
 import '../models/food.dart';
 
 class Restaurant extends ChangeNotifier {
